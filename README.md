@@ -219,37 +219,37 @@ The system uses:
 
 The model receives:
 
-
+```
 Calculate 25 × 12 using Python
-
+```
 
 
 The model generates:
-
-
+```
 print(25*10)
-
+```
 ## Step 2 - Execute
 
 The synthetic environment runs the code.
 
 Output:
-
+```
 250
-
+```
 ## Step 3 - Evaluate
 
 Expected:
-
+```
 300
-
+```
 Actual:
-
+```
 250
-
+```
 Reward:
-
+```
 -1
+```
 
 ## Step 4 - Learn
 
@@ -258,16 +258,19 @@ GRPO compares multiple generated solutions.
 Example:
 
 Solution A
+```
 Reward: -1
-
+```
 
 Solution B
+```
 Reward: +1
-
+```
 
 Solution C
+```
 Reward: -1
-
+```
 The model increases the probability of generating solutions similar to Solution B.
 
 
@@ -276,7 +279,7 @@ The model increases the probability of generating solutions similar to Solution 
 Instead of retraining billions of parameters:
 
 LoRA updates only small adapter weights.
-
+```
 Original Model
 
 +
@@ -286,11 +289,11 @@ LoRA Adapter
 =
 
 Improved Model
-
+```
 # 8 Project Structure
 
 Execution-Grounded-LoRA/
-'''
+```mermaid
 │
 ├── README.md
 │
@@ -315,7 +318,7 @@ Execution-Grounded-LoRA/
 └── data/
     |
     └── gsm8k.json
-'''
+```
 
 # 9. Installation
 Requirements
@@ -324,35 +327,35 @@ NVIDIA GPU recommended
 CUDA installed    
 
 Create environment:
-
+```
 python -m venv venv
-
+```
 
 Activate in:
 
 Windows:
-
+```
 venv\Scripts\activate
-
+```
 Linux:
-
+```
 source venv/bin/activate
-
+```
 Install dependencies:
-
+```
 pip install -r requirements.txt
-
+```
 
 # 10. Download Dataset
 
 Run:
-
+```
 python download_data.py
-
+```
 This downloads GSM8K samples:
-
+```
 data/gsm8k.json
-
+```
 
 # 11. Run Baseline Model
 
@@ -363,19 +366,24 @@ python demo.py
 Example:
 
 Question:
+```
 Calculate 25*12
-
+```
 
 Model Output:
+```
 print(25*10)
-
+```
 
 Execution:
+```
 250
-
+```
 
 Reward:
+```
 -1
+```
 
 The model fails.
 
@@ -388,7 +396,7 @@ Start GRPO training:
 python train_grpo.py
 
 The training loop:
-'''
+```
 
 Generate Rollouts
 
@@ -407,7 +415,7 @@ GRPO Optimization
         |
 
 Save LoRA Adapter
-'''
+```
 
 Output:
 
@@ -427,30 +435,30 @@ python demo_after_training.py
 Expected:
 
 Before:
-
+```
 Reward: -1
-
+```
 After:
 
 Generated Code:
-
+```
 print(25*12)
-
+```
 
 Execution:
-
+```
 300
-
+```
 
 Reward:
-
+```
 +1
-
+```
 
 
 # 14. Why This Is Different
 Traditional Fine-Tuning
-'''
+```
 Dataset
    |
    v
@@ -458,11 +466,11 @@ Training
    |
    v
 Model   
-'''
+```
 
 New Model
 Touch Weights
-'''
+```
 Model
 
  |
@@ -484,7 +492,7 @@ Weight Update
  |
 
 Better Model
-'''
+```
 
 The model learns through experience.
 
@@ -495,9 +503,10 @@ Touch Weights demonstrates a path toward:
 AI Systems That Improve Through Experience
 
 Instead of:
-
+```
 Train once and deploy forever
-
+```
 Move toward:
-
+```
 Deploy, learn, adapt, and improve continuously
+```
