@@ -290,7 +290,7 @@ Improved Model
 # 8 Project Structure
 
 Execution-Grounded-LoRA/
-
+'''
 │
 ├── README.md
 │
@@ -315,7 +315,7 @@ Execution-Grounded-LoRA/
 └── data/
     |
     └── gsm8k.json
-
+'''
 
 # 9. Installation
 Requirements
@@ -388,6 +388,7 @@ Start GRPO training:
 python train_grpo.py
 
 The training loop:
+'''
 
 Generate Rollouts
 
@@ -406,6 +407,7 @@ GRPO Optimization
         |
 
 Save LoRA Adapter
+'''
 
 Output:
 
@@ -448,14 +450,19 @@ Reward:
 
 # 14. Why This Is Different
 Traditional Fine-Tuning
+'''
 Dataset
    |
    v
 Training
    |
    v
+Model   
+'''
+
 New Model
 Touch Weights
+'''
 Model
 
  |
@@ -477,5 +484,20 @@ Weight Update
  |
 
 Better Model
+'''
 
 The model learns through experience.
+
+15. Impact
+
+Touch Weights demonstrates a path toward:
+
+AI Systems That Improve Through Experience
+
+Instead of:
+
+Train once and deploy forever
+
+Move toward:
+
+Deploy, learn, adapt, and improve continuously
