@@ -1,0 +1,15 @@
+# Python environment & cache
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# Large model checkpoints and data
+adapter/
+data/
+*.safetensors
+*.bin
+*.pt
+
+# Generated outputs
+*.pptx
