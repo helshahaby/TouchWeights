@@ -11,5 +11,3 @@ data/
 *.bin
 *.pt
 
-# Generated outputs
-*.pptx
