@@ -293,7 +293,7 @@ Improved Model
 # 8 Project Structure
 
 Execution-Grounded-LoRA/
-```mermaid
+```text
 │
 ├── README.md
 │
@@ -496,7 +496,7 @@ Better Model
 
 The model learns through experience.
 
-15. Impact
+# 15. Impact
 
 Touch Weights demonstrates a path toward:
 
