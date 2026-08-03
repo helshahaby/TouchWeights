@@ -41,6 +41,8 @@ Follow these strict reasoning guidelines:
 24. Keep units consistent. Never subtract a count of items from a count of pages/dollars. Convert to matching units first.
 25. If a problem states that prices, rates, or costs are rounded to the nearest dollar/unit before selling or calculating, ALWAYS apply `round()` directly to each individual unit price variable FIRST before multiplying by quantities. Never compute unrounded totals to round at the end!
 26. When a question asks for a total "in that time" or "during this period", identify the exact preceding event referenced by the pronoun. Do NOT add up previous step durations unless explicitly asked for the combined total time across all tasks.
+27. Identify the hidden fixed variable (the packaging cost, y) and the variable cost (price per marker, x).Set up a system of two linear equations: (n1 * x) + y = p1 and (n2 * x) + y = p2.
+29. Solve linear equations using SymPy or NumPy (do not use rounded floats or weighted averages).
 """
 
 print("Loading base model...")
