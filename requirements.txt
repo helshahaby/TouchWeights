@@ -1,9 +1,14 @@
-torch
+Plaintext
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch==2.1.0
+torchvision
+torchaudio
 transformers
 datasets
+trl
+peft
 accelerate
 peft
-trl
 bitsandbytes
 sentencepiece
 streamlit

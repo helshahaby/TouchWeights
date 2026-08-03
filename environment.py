@@ -1,30 +1,31 @@
-import io
 import sys
-import re
+import io
+import contextlib
 
 class PythonEnvironment:
-    def run(self, code: str) -> str:
-        # 1. Clean markdown code fences (```python ... ``` or ``` ... ```)
-        cleaned_code = re.sub(r"^```(?:python)?\n?", "", code.strip(), flags=re.MULTILINE)
-        cleaned_code = re.sub(r"\n?```$", "", cleaned_code, flags=re.MULTILINE).strip()
+    """Executes extracted Python code in a safe local scope and captures stdout."""
+    def __init__(self, timeout: int = 5):
+        self.timeout = timeout
 
-        # 2. Redirect stdout to capture print(...) output
-        buffer = io.StringIO()
-        old_stdout = sys.stdout
-        sys.stdout = buffer
+    def run(self, code_str: str) -> str:
+        output_buffer = io.StringIO()
+        
+        # FIX: Allow standard module imports (math, sympy, re, etc.)
+        global_scope = {"__name__": "__main__"}
+        local_scope = {}
 
         try:
-            exec_globals = {}
-            exec(cleaned_code, exec_globals)
-            sys.stdout = old_stdout
-            output = buffer.getvalue().strip()
+            with contextlib.redirect_stdout(output_buffer):
+                exec(code_str, global_scope, local_scope)
+            
+            output = output_buffer.getvalue().strip()
+            
+            # If stdout is empty, return the last assigned local variable
+            if not output and local_scope:
+                last_val = list(local_scope.values())[-1]
+                output = str(last_val).strip()
 
-            # Fallback: If no print() was called, check if a variable named 'result' exists
-            if not output and "result" in exec_globals:
-                output = str(exec_globals["result"])
-
-            return output
+            return output if output else "No output printed"
             
         except Exception as e:
-            sys.stdout = old_stdout
-            return f"Error: {e}"
+            return f"Execution Error: {type(e).__name__}: {str(e)}"

@@ -60,8 +60,9 @@ with torch.no_grad():
     # Pass **inputs (unpacks input_ids & attention_mask dictionary)
     output = model.generate(
         **inputs,
-        max_new_tokens=100,
-        do_sample=False,  # Note: do_sample=False ignores temperature parameter
+        max_new_tokens=384,
+        do_sample=True,  # Note: do_sample=False ignores temperature parameter
+        temperature=0.7,
         pad_token_id=tokenizer.eos_token_id
     )
 

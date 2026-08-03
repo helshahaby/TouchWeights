@@ -1,72 +1,65 @@
 from model import load_model
 from environment import PythonEnvironment
 from reward import calculate_reward
+import re
 
+def extract_python_code(text: str) -> str:
+    pattern = r"```python\s*(.*?)\s*```"
+    matches = re.findall(pattern, text, re.DOTALL)
+    if matches:
+        return matches[0].strip()
+    return text.strip()
 
-model,tokenizer=load_model()
+model, tokenizer = load_model()
+env = PythonEnvironment()
 
-
-env=PythonEnvironment()
-
-
-question="""
-
+question = """
 Calculate 25*12 using Python.
-
 """
 
-
-prompt=f"""
-
+prompt = f"""
 Solve this problem.
-
 Return only python code.
 
 {question}
-
 """
 
-
-inputs=tokenizer(
+inputs = tokenizer(
     prompt,
     return_tensors="pt"
 ).to(model.device)
 
-
-
-output=model.generate(
-
+output = model.generate(
     **inputs,
-
-    max_new_tokens=200
-
+    max_new_tokens=512
 )
 
-
-answer=tokenizer.decode(
+answer = tokenizer.decode(
     output[0],
     skip_special_tokens=True
 )
-
 
 print("================")
 print("MODEL OUTPUT")
 print(answer)
 
+# EXTRACT CLEAN CODE BEFORE EXECUTING
+code_to_run = extract_python_code(answer)
 
-result=env.run(answer)
+print("================")
+print("EXTRACTED CODE TO EXECUTE:")
+print(code_to_run)
 
+result = env.run(code_to_run)
 
 print("================")
 print("EXECUTION")
 print(result)
 
-
-reward=calculate_reward(
+reward = calculate_reward(
     result,
     "300"
 )
 
-
 print("================")
-print("REWARD:",reward)
+print("REWARD:", reward)
